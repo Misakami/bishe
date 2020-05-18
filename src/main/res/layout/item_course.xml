@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        android:layout_margin="2dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:visibility="invisible"
+        android:id="@+id/course_cardView"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:cardBackgroundColor="@android:color/holo_red_light">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/course_title"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:lines="2"
+                android:layout_height="60dp"
+                android:textColor="@android:color/white"
+                android:gravity="top|center"
+                tools:text="物理实验课" />
+            <TextView
+                android:lines="1"
+                android:id="@+id/course_content"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                tools:text="教室"
+                android:textColor="@android:color/white"
+                android:gravity="center|bottom" />
+        </LinearLayout>
+</androidx.cardview.widget.CardView>

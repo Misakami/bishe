@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">bishe</string>
+    <string name="change">是否更换课表?</string>
+    <string name="取消">取消</string>
+    <string name="确认">确认</string>
+</resources>
