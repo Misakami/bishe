@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_course"
-        android:icon="@drawable/abc_vector_test"
+        android:icon="@mipmap/course"
         android:title="课表" />
 
     <item
         android:id="@+id/navigation_search"
-        android:icon="@drawable/abc_vector_test"
+        android:icon="@mipmap/search"
         android:title="搜索" />
 
     <item
         android:id="@+id/navigation_login"
-        android:icon="@drawable/abc_vector_test"
+        android:icon="@mipmap/user"
         android:title="用户" />
 </menu>

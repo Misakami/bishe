@@ -18,6 +18,7 @@ import com.example.bishe.Util.DateTools;
 import com.example.bishe.model.bean.CourseBean;
 import com.example.bishe.model.bean.Curriculum;
 import com.example.bishe.widget.CustomDialog;
+import com.example.bishe.widget.EventDialog;
 import com.example.bishe.widget.LoadingDialog;
 import com.example.bishe.widget.TeacherDialog;
 
@@ -81,9 +82,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             int section = position/7 * 2;
             for (int i = 0; i < curricula.size() ; i++) {
                 final Curriculum curriculum = curricula.get(i);
-                if (curriculum.getDay() == day && curriculum.getSection()[section] == 1){
+                if (curriculum.getDay() == day + 1 && curriculum.getSection()[section] == 1){
                     cardView.setVisibility(View.VISIBLE);
-                    title.setText(curriculum.getTitle());
+                    String[] split = curriculum.getTitle().split("-");
+                    title.setText(split[split.length-1]);
                     content.setText(curriculum.getContent());
                     cardView.setClickable(true);
                     cardView.setOnClickListener(new View.OnClickListener() {
@@ -100,17 +102,17 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             @Override
                             public boolean onLongClick(View v) {
                                 final String weakTime = DateTools.getWeakTime(startTime, 7 * weak + day);
-                                TeacherDialog teacherDialog = new TeacherDialog(context);
-                                teacherDialog.setMessage("是否把这次事件添加日历提醒");
-                                teacherDialog.setListener(new TeacherDialog.OnClickListener() {
+                                EventDialog eventDialog = new EventDialog(context);
+                                eventDialog.setMessage("是否把这次事件添加日历提醒")
+                                .setListener(new EventDialog.OnClickListener() {
                                     @Override
-                                    public void onConfirmClick() {
+                                    public void onConfirmClick(int time) {
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                            CalendarProviderUtil.addCourse(context, curriculum, weakTime);
+                                            CalendarProviderUtil.addCourse(context, curriculum, weakTime,time);
                                         }
                                     }
                                 });
-                                teacherDialog.show();
+                                eventDialog.show();
                                 return true;
                             }
                         });

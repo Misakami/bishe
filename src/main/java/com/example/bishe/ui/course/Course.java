@@ -137,6 +137,16 @@ public class Course extends Fragment{
         }
         Gson gson = new Gson();
         this.course = gson.fromJson(course, CourseBean.class);
+        int weak = DateTools.getWeak(this.course.getStartTime());
+        if (weak >= Integer.parseInt(this.course.getLastWeak())){
+            SharedPreferences sp= App.getContext().getSharedPreferences("data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor edit = sp.edit();
+            edit.remove("teaId");
+            edit.remove("teaName");
+            edit.remove(teaId);
+            edit.apply();
+            return false;
+        }
         return true;
     }
 }

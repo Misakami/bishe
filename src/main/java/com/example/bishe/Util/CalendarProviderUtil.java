@@ -93,7 +93,7 @@ public class CalendarProviderUtil {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static boolean addCourse(Context context,Curriculum curriculum,String weakTime){
+    public static boolean addCourse(Context context,Curriculum curriculum,String weakTime,int spinner){
         String[] split = weakTime.split("-");
         int year = Integer.parseInt(split[0]);
         int month = Integer.parseInt(split[1]) - 1;
@@ -129,11 +129,11 @@ public class CalendarProviderUtil {
         Calendar endTime = Calendar.getInstance();
         endTime.set(year,month,day,endhour,endminute);
         long endMillis = endTime.getTimeInMillis();
-        return addCalender(context,startMillis,endMillis,curriculum.getTitle(),curriculum.getContent());
+        return addCalender(context,startMillis,endMillis,curriculum.getTitle(),curriculum.getContent(),spinner);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static boolean addEvent(Context context, EventBean.ReturnDataBean rd){
+    public static boolean addEvent(Context context, EventBean.ReturnDataBean rd,int i){
         int year,month,day,hour,minute;
         String startTime = rd.getStarttime();
         String[] split = startTime.split("-");
@@ -158,14 +158,14 @@ public class CalendarProviderUtil {
         Calendar endTime = Calendar.getInstance();
         endTime.set(year,month,day,hour,minute);
         long endMillis = endTime.getTimeInMillis();
-        return addCalender(context,startMillis,endMillis,rd.getTitle(),rd.getContent());
+        return addCalender(context,startMillis,endMillis,rd.getTitle(),rd.getContent(),i);
     }
 
     /**
      *  添加日历事件
      * */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private static boolean addCalender(Context context,long startMillis,long endMillis,String title,String content){
+    private static boolean addCalender(Context context,long startMillis,long endMillis,String title,String content,int minute){
 
         // 创建contentResolver
         contentResolver = context.getContentResolver();
@@ -198,7 +198,8 @@ public class CalendarProviderUtil {
         long eventId = ContentUris.parseId(insertEventUri);
         ContentValues valueReminder = new ContentValues();
         valueReminder.put(CalendarContract.Reminders.EVENT_ID,eventId);
-        valueReminder.put(CalendarContract.Reminders.MINUTES,15);
+        valueReminder.put(CalendarContract.Reminders.MINUTES,minute);
+        Log.e(TAG, "addEvent: " + minute );
         valueReminder.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT );
         @SuppressLint("MissingPermission") Uri insertReminderUri = contentResolver.insert(reminderUri,valueReminder);
         if (insertReminderUri == null){

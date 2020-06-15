@@ -100,6 +100,7 @@ public class SearchTeacherAdapter extends RecyclerView.Adapter<RecyclerView.View
                                             SharedPreferences sharedPreferences= App.getContext().getSharedPreferences("data", Context.MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
                                             editor.putString("teaName", String.valueOf(teaName.getText()));
+                                            editor.putString("teaJysm",String.valueOf(jysm.getText()));
                                             editor.apply();
                                             Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();

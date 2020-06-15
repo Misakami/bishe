@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="time">
+        <item>提前15分钟</item>
+
+        <item>提前半小时</item>
+
+        <item>提前1小时</item>
+
+        <item>提前2小时</item>
+
+        <item>提前1天</item>
+    </string-array>
+</resources>

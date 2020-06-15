@@ -8,21 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:id="@+id/startTime"
+            android:id="@+id/id"
             android:layout_weight="1.5"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:lines="1"
             tools:text="2020-04-29-14-00"/>
-        <TextView
-            android:id="@+id/endTime"
-            android:layout_weight="1.5"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:layout_height="match_parent"
-            android:lines="1"
-            tools:text="2020-04-29-15-00"/>
         <TextView
             android:id="@+id/event_title"
             android:layout_weight="1"

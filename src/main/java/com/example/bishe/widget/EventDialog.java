@@ -3,25 +3,32 @@ package com.example.bishe.widget;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.bishe.R;
-import com.example.bishe.model.bean.Teacher;
 
-public class TeacherDialog extends AlertDialog {
+import org.angmarch.views.NiceSpinner;
+import org.angmarch.views.OnSpinnerItemSelectedListener;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
+public class EventDialog extends AlertDialog {
     private OnClickListener listener;
     private TextView cancel;
     private TextView confirm;
     private TextView td_content;
     private String message;
+    private NiceSpinner spinner;
+    private int[] time = new int[]{15,30,60,120,1440};
 
-
-    public TeacherDialog(Context context) {
+    public EventDialog(Context context) {
         super(context, R.style.CustomDialog);
     }
 
@@ -43,17 +50,24 @@ public class TeacherDialog extends AlertDialog {
     }
 
     private void initClick() {
+        final int[] i = new int[1];
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
+        spinner.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
+            @Override
+            public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
+                i[0] = time[position];
+            }
+        });
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null){
-                    listener.onConfirmClick();
+                    listener.onConfirmClick(i[0]);
                 }
                 dismiss();
             }
@@ -64,13 +78,15 @@ public class TeacherDialog extends AlertDialog {
         cancel = findViewById(R.id.cancel_button);
         confirm = findViewById(R.id.confirm_button);
         td_content = findViewById(R.id.td_content);
-
+        spinner = findViewById(R.id.spinner);
         if (message != null){
             td_content.setText(message);
         }
+        spinner.setVisibility(View.VISIBLE);
+        spinner.setSelectedIndex(0);
     }
 
-    public TeacherDialog setMessage(String message){
+    public EventDialog setMessage(String message){
         this.message = message;
         return this;
     }
@@ -86,12 +102,12 @@ public class TeacherDialog extends AlertDialog {
         window.setAttributes(lp);
     }
 
-    public TeacherDialog setListener(OnClickListener clickListener){
+    public EventDialog setListener(OnClickListener clickListener){
         listener = clickListener;
         return this;
     }
 
     public interface OnClickListener{
-        void onConfirmClick();
+        void onConfirmClick(int time);
     }
 }
